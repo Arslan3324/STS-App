@@ -174,16 +174,16 @@ def qr_code():
         for barcode in decode(frame):
             myData = barcode.data.decode('utf-8')
             if myData in myDataList:
-                Output = "Authorized"
+                Output = myData + " Verified"
             else:
                 Output = "UnAuthorized"
-            #detect QR
+        #detect QR
             pts = np.array([barcode.polygon],np.int32)
             pts = pts.reshape((-1,1,2))
             cv2.polylines(frame,[pts],True,(255,0,255),5)
 
             pts2 = barcode.rect
-            cv2.putText(frame,(Output),(pts2[0],pts2[1]),cv2.FONT_HERSHEY_SIMPLEX,0.9,(255,0,255),2)
+            cv2.putText(frame,(Output),(pts2[0],pts2[1]),cv2.FONT_HERSHEY_SIMPLEX,0.6,(255,255,0),2)
 
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
