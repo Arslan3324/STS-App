@@ -82,24 +82,34 @@ async function recognizeFaces() {
 
 // Example POST method implementation:
 async function uploadResult() {
-    // Default options are marked with *
-    const response = await fetch("http://localhost:3002/api/analytic", {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'no-cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify({"testID":"999", "count":012}) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
-  
-  
+
+
+    
+   
+    // fetch('http://sts-backapi.herokuapp.com/api/analytic',{
+    //     method : "POST",
+    //     mode: 'cors'},
+    //     {body : {"testID" : "10223",
+    //     "count" : 33}}
+    // )
+    // .then (response => response.json())
+    // .then(data => console.log(data))
+    // .catch(err => console.log(err))
+
+
+fetch('http://sts-backapi.herokuapp.com/api/analytic', {
+            mode: 'cors',
+            method: "post",
+            headers: {
+                 "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "testID" : localStorage.getItem( 'test_id' ),
+                 "count" : detectedF.length
+            })
+ })
+
+}
 
 
 
