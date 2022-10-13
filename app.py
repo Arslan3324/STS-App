@@ -4,6 +4,8 @@ from flask import Flask, render_template, Response
 import cv2
 import numpy as np
 from pyzbar.pyzbar import decode
+import simpleaudio 
+
 
 
 
@@ -24,7 +26,8 @@ app=Flask(__name__)
 # }))
 
 
-
+wave_obj = simpleaudio.WaveObject.from_wave_file("beepone.wav")
+wave_obj1 = simpleaudio.WaveObject.from_wave_file("beeptwo.wav")
 camera = cv2.VideoCapture(0)
 #QR code generator
 with open('myDataFile.txt') as f:
@@ -37,8 +40,12 @@ def qr_code():
             myData = barcode.data.decode('utf-8')
             if myData in myDataList:
                 Output = myData + " Verified"
+                play_obj = wave_obj.play()
+                play_obj.wait_done()
             else:
                 Output = "UnAuthorized"
+                play_obj = wave_obj1.play()
+                play_obj.wait_done()
         #detect QR
             pts = np.array([barcode.polygon],np.int32)
             pts = pts.reshape((-1,1,2))

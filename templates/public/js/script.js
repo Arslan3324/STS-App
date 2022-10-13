@@ -10,7 +10,7 @@ Promise.all([
 
 
 function start() {
-    document.body.append('Models Loaded')
+    
     
     navigator.getUserMedia(
         { video:{} },
@@ -62,11 +62,13 @@ async function recognizeFaces() {
                     else{
                         count = 0;
                     }
-                    if(count>100){
+                    if(count>60){
                     detectedF.push(result.label)
                     count=0;}
                 }
                 console.log(detectedF)
+                detected.innerHTML = detectedF;
+
 
                 const box = resizedDetections[i].detection.box
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
@@ -74,7 +76,7 @@ async function recognizeFaces() {
             
             })
         }, 100)
-
+        const detected = document.getElementById('detected');
 
         
     })
@@ -108,13 +110,14 @@ fetch('http://sts-backapi.herokuapp.com/api/analytic', {
                  "count" : detectedF.length
             })
  })
+    .then(alert('Uploaded!'))
 
 }
 
 
 
 function loadLabeledImages() {
-    const labels = ['AbdulJabbar','Arslan','DrAhsanullah','DrMuhammadHussain']
+    const labels = ['AbdulJabbar','Arslan','DrAhsanullah','DrMuhammadHussain','DrFaheemAkhtar','DrGhulamMujtaba','DrJavedShahani','DrMirMuhammad','DrQamarKhand','DrSher','DrZahidKhand']
     // const labels = [] // for WebCam
     return Promise.all(
         labels.map(async (label)=>{

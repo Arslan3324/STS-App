@@ -25,8 +25,8 @@ fetch(`http://sts-backapi.herokuapp.com/api/analytic/${testIDStored}`)
     //round off 
 
     let math =  Math.round(c/4)
-    validated.innerHTML = (c - math)
-    rejected.innerHTML = math
+    validated.innerHTML = c
+    rejected.innerHTML = 0
     // console.log(data[0].count);
     // present.innerHTML = data[0].count;
 }
